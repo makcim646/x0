@@ -8,7 +8,7 @@ If you are using 3WIFI-PASS.sh script you need:
 A wireless interface with a chipset
 Aircrack-ng installed in yout systems
 
-The script synchronizes the found passwords in /mmp / pass.log
+The script synchronizes the found passwords in /tmp / pass.log
 
 
 
