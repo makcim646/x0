@@ -6,7 +6,7 @@ read wlan
 
 sudo  airmon-ng start $wlan
 
-sudo timeout 100 xterm -geometry "150x50+50+0" -e "sudo airodump-ng -i $wlan'mon' -w /tmp/openwifinetworks --output-forma csv"
+sudo timeout 100 xterm -geometry "150x50+50+0" -e "sudo airodump-ng -i $wlan'mon' -w ../tmp/openwifinetworks --output-forma csv"
 
 cat /tmp/openwifinetworks-01.csv | grep -E '[A-Fa-f0-9:]{11}' | grep -E "$i" | awk '{print $1}' | cut -f1 -d "," > /tmp/bssid.txt
 
