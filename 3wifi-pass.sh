@@ -12,7 +12,7 @@ cat /tmp/openwifinetworks-01.csv | grep -E '[A-Fa-f0-9:]{11}' | grep -E "$i" | a
 
 
 while read bssid
- do curl --request POST "http://3wifi.stascorp.com/api/ajax.php?Query=Find&Key=MHgONUzVP0KK3FGfV0HVEREHLsS6odc3&BSSID=$bssid&Version=0.5" | awk -F'[,]' '{print $2,$3}' >>/tmp/pass.txt
+ do curl "http://3wifi.stascorp.com/api/ajax.php?Query=Find&Key=MHgONUzVP0KK3FGfV0HVEREHLsS6odc3&BSSID=$bssid&Version=0.5" | awk -F'[,]' '{print $2,$3}' >>/tmp/pass.txt
  done < /tmp/bssid.txt 
 
  
