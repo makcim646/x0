@@ -21,6 +21,7 @@ The script synchronizes the found passwords in pass.log
 Если вы используете скрипт 3wifi-pass.sh вам нужно:
 
 Бeспроводной интерфейс поддерживающий режим монитрора
+
 Aircrack-ng установленный в вышей системе
 
 Скрипт сохроняет найденые пароли в pass.log
