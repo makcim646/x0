@@ -25,3 +25,9 @@ The script synchronizes the found passwords in pass.log
 Aircrack-ng установленный в вышей системе
 
 Скрипт сохроняет найденые пароли в pass.log
+
+INSTALL:
+1. git clone https://github.com/makcim646/x0.git
+2. cd x0
+3. chmod +x 3wifi-pass.sh
+4. ./3wifi-passsh
