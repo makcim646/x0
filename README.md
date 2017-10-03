@@ -3,24 +3,24 @@ This script searches for passwords from WIFI in the database of the site 3wifi.s
 
 REQUIREMENTS
 
-If you are using 3WIFI-PASS.sh script you need:
+If you are using 3wifi-pass.sh script you need:
 
 A wireless interface with a chipset
 Aircrack-ng installed in yout systems
 
-The script synchronizes the found passwords in /tmp / pass.log
+The script synchronizes the found passwords in pass.log
 
 
 
 
 
-Данный скрипт ищет пароли от WIFI в базе данных сайта 3wifi.stascorp.ком
+Данный скрипт ищет пароли от WIFI в базе данных сайта 3wifi.stascorp.com
 
 ТРЕБОВАНИЯ
 
-Если вы используете скрипт 3WIFI-PASS.sh вам нужно:
+Если вы используете скрипт 3wifi-pass.sh вам нужно:
 
 Бeспроводной интерфейс поддерживающий режим монитрора
 Aircrack-ng установленный в вышей системе
 
-Скрипт сохроняет найденые пароли в /tmp/pass.log
+Скрипт сохроняет найденые пароли в pass.log
