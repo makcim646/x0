@@ -1,4 +1,4 @@
-# x0 
+# 3wifi-pass.sh
 This script searches for passwords from WIFI in the database of the site 3wifi.stascorp.com
 
 REQUIREMENTS
